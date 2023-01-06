@@ -2,35 +2,44 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const app = express();
-var items = ["Comprar Comida", "Comer Comida", "Cozinhar Comida"];
+let items = ["Comprar Comida", "Comer Comida", "Cozinhar Comida"];
 
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static("public"));
+
 app.get("/", function (req, res) {
-  var today = new Date();
-  var options = {
+  let today = new Date();
+  let options = {
     weekday: "long",
     day: "numeric",
     month: "long",
   };
 
-  var day = today.toLocaleDateString("pt-br", options);
+  let day = today.toLocaleDateString("pt-br", options);
+  function CaptlizeFirstWord(word) {
+    var splitAt = word.split(" ");
+    for (var i = 0; i < splitAt.length; i++) {
+      if ( splitAt[i] != "de") {
+        splitAt[i] = splitAt[i].charAt(0).toUpperCase() + splitAt[i].slice(1);
+      }
+    }
+    var finalText = splitAt.join(" ");
+    return finalText
+  }
+  let final = CaptlizeFirstWord(day)
 
-  var peguei = req.body.testes;
-  console.log(peguei);
-
-  res.render("list", { kindOfDay: day, newListItems: items });
+  res.render("list", { listTitle: final, newListItems: items });
 });
 
 app.post("/", function (req, res) {
-  var item = req.body.newItem;
+  let item = req.body.newItem;
   items.push(item);
 
   res.redirect("/");
 });
-
 
 app.listen(3000, function () {
   console.log(`Server running on 3000`);

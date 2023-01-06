@@ -19,7 +19,7 @@ app.get("/", function (req, res) {
   };
 
   let day = today.toLocaleDateString("pt-br", options);
-  function CaptlizeFirstWord(word) {
+  function captlizeFirstWord(word) {
     var splitAt = word.split(" ");
     for (var i = 0; i < splitAt.length; i++) {
       if ( splitAt[i] != "de") {
@@ -29,7 +29,7 @@ app.get("/", function (req, res) {
     var finalText = splitAt.join(" ");
     return finalText
   }
-  let final = CaptlizeFirstWord(day)
+  let final = captlizeFirstWord(day)
 
   res.render("list", { listTitle: final, newListItems: items });
 });

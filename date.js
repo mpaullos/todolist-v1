@@ -1,4 +1,4 @@
-exports.getDay = function() {
+exports.getDate = function() {
 
     const today = new Date();
       const options = {
@@ -11,7 +11,7 @@ exports.getDay = function() {
       return day
 }
 
-exports.captlizeFirstWord = function(word) {
+exports.capitalizeFirstWord = function(word) {
     const splitAt = word.split(" ");
     for (var i = 0; i < splitAt.length; i++) {
       if (splitAt[i] != "de") {
